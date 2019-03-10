@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, Fragment } from 'react';
 import './App.css';
+import { Counters } from './components/counters';
+import { NavBar } from './components/navBar';
+import { connect } from 'react-redux';
+import { AppState } from './store/store';
+import { startAction, stopAction } from './store/actions';
+import { Action } from 'redux';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Fragment>
+        <NavBar />
+        <Counters />
+      </Fragment>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: AppState) => ({ ...state });
+
+const mapDispatchToProps = (dispatch: {
+  (arg0: Action<string>): void;
+  (arg0: Action<string>): void;
+}) => ({
+  startAction: () => dispatch(startAction),
+  stopAction: () => dispatch(stopAction)
+});
+
+// export default App;
+// export default connect()(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
