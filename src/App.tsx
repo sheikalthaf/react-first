@@ -5,7 +5,7 @@ import { NavBar } from './components/navBar';
 import { connect } from 'react-redux';
 import { AppState } from './store/store';
 import { startAction, stopAction } from './store/actions';
-import { Action } from 'redux';
+import { oDispatch } from './typings';
 
 class App extends Component {
   render() {
@@ -20,16 +20,11 @@ class App extends Component {
 
 const mapStateToProps = (state: AppState) => ({ ...state });
 
-const mapDispatchToProps = (dispatch: {
-  (arg0: Action<string>): void;
-  (arg0: Action<string>): void;
-}) => ({
+const mapDispatchToProps = (dispatch: oDispatch<string>) => ({
   startAction: () => dispatch(startAction),
   stopAction: () => dispatch(stopAction)
 });
 
-// export default App;
-// export default connect()(App);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
